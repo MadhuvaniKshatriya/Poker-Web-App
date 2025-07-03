@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Texas Hold'em Poker</h1>
+        <p class="hero-subtitle">Professional Poker Experience</p>
+        
+        <div class="auth-container" id="auth-container">
+            <!-- Login Form -->
+            <div class="auth-form" id="login-form">
+                <h2>Login</h2>
+                <form id="login-form-element">
+                    <div class="form-group">
+                        <input type="text" id="login-username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <p class="auth-switch">
+                    Don't have an account? 
+                    <a href="#" id="show-register">Register here</a>
+                </p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form hidden" id="register-form">
+                <h2>Register</h2>
+                <form id="register-form-element">
+                    <div class="form-group">
+                        <input type="text" id="register-username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="register-email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="register-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <p class="auth-switch">
+                    Already have an account? 
+                    <a href="#" id="show-login">Login here</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Game Dashboard (shown after login) -->
+        <div class="dashboard hidden" id="dashboard">
+            <div class="user-info">
+                <h2>Welcome, <span id="username"></span>!</h2>
+                <p class="chips-display">Chips: $<span id="user-chips"></span></p>
+            </div>
+
+            <div class="game-actions">
+                <div class="action-card">
+                    <h3>Create New Game</h3>
+                    <form id="create-game-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Max Players</label>
+                                <select id="max-players">
+                                    <option value="2">2 Players</option>
+                                    <option value="3">3 Players</option>
+                                    <option value="4" selected>4 Players</option>
+                                    <option value="5">5 Players</option>
+                                    <option value="6">6 Players</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Small Blind</label>
+                                <input type="number" id="small-blind" value="10" min="5" max="100">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Game</button>
+                    </form>
+                </div>
+
+                <div class="action-card">
+                    <h3>Join Game</h3>
+                    <form id="join-game-form">
+                        <div class="form-group">
+                            <input type="text" id="game-id" placeholder="Enter Game ID" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Join Game</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <h3>Quick Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="games-won">0</span>
+                        <span class="stat-label">Games Won</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="games-played">0</span>
+                        <span class="stat-label">Total Games</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="win-rate">0%</span>
+                        <span class="stat-label">Win Rate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

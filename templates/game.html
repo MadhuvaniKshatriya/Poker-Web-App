@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Game - Texas Hold'em Poker{% endblock %}
+
+{% block content %}
+<div class="game-container">
+    <div class="game-header">
+        <div class="game-info">
+            <h2>Texas Hold'em</h2>
+            <div class="pot-display">
+                Pot: $<span id="pot-amount">0</span>
+            </div>
+        </div>
+        <div class="game-controls">
+            <button id="leave-game" class="btn btn-danger">Leave Game</button>
+        </div>
+    </div>
+
+    <div class="poker-table">
+        <div class="community-area">
+            <div class="phase-display">
+                <span id="game-phase">Pre-Flop</span>
+            </div>
+            <div class="community-cards" id="community-cards">
+                <div class="card-slot"><div class="card card-back"></div></div>
+                <div class="card-slot"><div class="card card-back"></div></div>
+                <div class="card-slot"><div class="card card-back"></div></div>
+                <div class="card-slot"><div class="card card-back"></div></div>
+                <div class="card-slot"><div class="card card-back"></div></div>
+            </div>
+        </div>
+
+        <div class="players-container" id="players-container">
+            <!-- Players will be dynamically added here -->
+        </div>
+    </div>
+
+    <div class="player-actions" id="player-actions">
+        <div class="current-player-info">
+            <h3 id="current-player-name">Your Turn</h3>
+            <p>Chips: $<span id="current-player-chips">0</span></p>
+            <p id="call-amount" class="call-info hidden">Call: $<span>0</span></p>
+        </div>
+        
+        <div class="action-buttons">
+            <button id="fold-btn" class="action-btn fold-btn">Fold</button>
+            <button id="check-call-btn" class="action-btn check-call-btn">Check</button>
+            <button id="raise-btn" class="action-btn raise-btn">Raise</button>
+            <button id="all-in-btn" class="action-btn all-in-btn">All In</button>
+        </div>
+    </div>
+
+    <!-- Bet Modal -->
+    <div id="bet-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Place Bet</h3>
+            <div class="bet-controls">
+                <button id="decrease-bet" class="bet-control-btn">-</button>
+                <span id="bet-amount">20</span>
+                <button id="increase-bet" class="bet-control-btn">+</button>
+            </div>
+            <div class="bet-info">
+                <p>Min: $<span id="min-bet">20</span></p>
+                <p>Max: $<span id="max-bet">1000</span></p>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-bet" class="btn btn-secondary">Cancel</button>
+                <button id="confirm-bet" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/game.js') }}"></script>
+{% endblock %}

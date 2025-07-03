@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Stats - Texas Hold'em Poker{% endblock %}
+
+{% block content %}
+<div class="stats-container">
+    <div class="stats-header">
+        <h1>Your Statistics</h1>
+        <p>Track your poker progress</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-content">
+                <h3>Games Won</h3>
+                <span class="stat-value">{{ user.games_won }}</span>
+                <span class="stat-subtitle">Total victories</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-content">
+                <h3>Win Rate</h3>
+                <span class="stat-value">
+                    {% if user.games_played > 0 %}
+                        {{ "%.1f"|format((user.games_won / user.games_played) * 100) }}%
+                    {% else %}
+                        0%
+                    {% endif %}
+                </span>
+                <span class="stat-subtitle">Success percentage</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🎮</div>
+            <div class="stat-content">
+                <h3>Games Played</h3>
+                <span class="stat-value">{{ user.games_played }}</span>
+                <span class="stat-subtitle">Total sessions</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-content">
+                <h3>Total Winnings</h3>
+                <span class="stat-value">${{ user.total_winnings }}</span>
+                <span class="stat-subtitle">Lifetime earnings</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-content">
+                <h3>Current Chips</h3>
+                <span class="stat-value">${{ user.chips }}</span>
+                <span class="stat-subtitle">Available to play</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-content">
+                <h3>Member Since</h3>
+                <span class="stat-value">{{ user.created_at.strftime('%b %Y') }}</span>
+                <span class="stat-subtitle">Join date</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="achievements-section">
+        <h2>Achievements</h2>
+        <div class="achievements-grid">
+            <div class="achievement-badge {% if user.games_won >= 1 %}unlocked{% endif %}">
+                <div class="achievement-icon">🥇</div>
+                <div class="achievement-content">
+                    <h4>First Victory</h4>
+                    <p>Win your first poker game</p>
+                </div>
+            </div>
+
+            <div class="achievement-badge {% if user.games_won >= 5 %}unlocked{% endif %}">
+                <div class="achievement-icon">🔥</div>
+                <div class="achievement-content">
+                    <h4>Hot Streak</h4>
+                    <p>Win 5 games</p>
+                </div>
+            </div>
+
+            <div class="achievement-badge {% if user.games_played >= 10 %}unlocked{% endif %}">
+                <div class="achievement-icon">🎭</div>
+                <div class="achievement-content">
+                    <h4>Poker Face</h4>
+                    <p>Play 10 games</p>
+                </div>
+            </div>
+
+            <div class="achievement-badge {% if user.total_winnings >= 1000 %}unlocked{% endif %}">
+                <div class="achievement-icon">💎</div>
+                <div class="achievement-content">
+                    <h4>High Roller</h4>
+                    <p>Win $1000 total</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Leaderboard - Texas Hold'em Poker{% endblock %}
+
+{% block content %}
+<div class="leaderboard-container">
+    <div class="leaderboard-header">
+        <h1>Leaderboard</h1>
+        <p>Top poker players worldwide</p>
+    </div>
+
+    <div class="podium">
+        {% if users|length >= 3 %}
+        <div class="podium-item second-place">
+            <div class="podium-rank">🥈</div>
+            <div class="podium-info">
+                <h3>{{ users[1].username }}</h3>
+                <p>{{ users[1].games_won }} wins</p>
+            </div>
+        </div>
+
+        <div class="podium-item first-place">
+            <div class="podium-rank">👑</div>
+            <div class="podium-info">
+                <h3>{{ users[0].username }}</h3>
+                <p>{{ users[0].games_won }} wins</p>
+            </div>
+        </div>
+
+        <div class="podium-item third-place">
+            <div class="podium-rank">🥉</div>
+            <div class="podium-info">
+                <h3>{{ users[2].username }}</h3>
+                <p>{{ users[2].games_won }} wins</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="leaderboard-list">
+        {% for user in users %}
+        <div class="leaderboard-item {% if loop.index <= 3 %}top-three{% endif %}">
+            <div class="rank">
+                {% if loop.index == 1 %}👑
+                {% elif loop.index == 2 %}🥈
+                {% elif loop.index == 3 %}🥉
+                {% else %}{{ loop.index }}
+                {% endif %}
+            </div>
+            <div class="player-info">
+                <h4>{{ user.username }}</h4>
+                <p>{{ user.games_won }} wins • 
+                   {% if user.games_played > 0 %}
+                       {{ "%.1f"|format((user.games_won / user.games_played) * 100) }}%
+                   {% else %}
+                       0%
+                   {% endif %} win rate
+                </p>
+            </div>
+            <div class="player-stats">
+                <span class="total-winnings">${{ user.total_winnings }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
